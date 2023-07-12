@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+
 class MyButton extends StatelessWidget {
-  const MyButton({Key? key}) : super(key: key);
+  final String title;
+  final VoidCallback onTapped;
+  final Color colors;
+  const MyButton({Key? key,required this.title,required this.onTapped,required this.colors}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -8,17 +12,14 @@ class MyButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
         elevation: 5.0,
-        color: Colors.lightBlueAccent,
+        color: colors,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
-          onPressed: () {
-
-            //Go to login screen.
-          },
+          onPressed:  onTapped,
           minWidth: 200.0,
           height: 42.0,
           child: Text(
-            'Log In',
+            title,
           ),
         ),
       ),

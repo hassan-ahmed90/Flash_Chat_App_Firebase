@@ -1,5 +1,7 @@
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flash_chat_firebasae/Routes/routes_name.dart';
+import 'package:flash_chat_firebasae/component/my_button.dart';
 import 'package:flutter/material.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       vsync: this,
    upperBound: 100
     );
+    animation= ColorTween(begin: Colors.blueGrey,end: Colors.white).animate(controller!);
    //  animation= CurvedAnimation(parent: controller!, curve: Curves.easeIn);
    // animation?.addStatusListener((status) {
    //   setState(() {
@@ -48,7 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation!.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -64,12 +67,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                     height: controller!.value,
                   ),
                 ),
-                Text(
-                  'Flash Chat',
-                  style: TextStyle(
+                DefaultTextStyle(
+                  style: const TextStyle(
                     color: Colors.black54,
-                    fontSize: 45.0,
                     fontWeight: FontWeight.w900,
+                    fontSize: 40.0,
+                  ),
+                  child: AnimatedTextKit(
+
+                    totalRepeatCount: 2,
+                    animatedTexts: [
+                      TypewriterAnimatedText('Flash Chat'),
+                    ],
                   ),
                 ),
               ],
@@ -77,44 +86,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RoutesName.login);
-                    //Go to login screen.
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RoutesName.registration);
-                    //Go to registration screen.
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
-            ),
+            MyButton(colors:Colors.blue,title: "Log In", onTapped: (){
+              Navigator.pushNamed(context, RoutesName.login);
+            }),
+            MyButton(colors:Colors.lightBlueAccent,title: "Sign Up", onTapped: (){
+              Navigator.pushNamed(context, RoutesName.registration);
+            }),
+
           ],
         ),
       ),
