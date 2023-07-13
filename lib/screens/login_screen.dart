@@ -1,3 +1,8 @@
+
+
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_firebasae/Routes/routes_name.dart';
 import 'package:flash_chat_firebasae/constant.dart';
 import 'package:flutter/material.dart';
 class LoginScreen extends StatefulWidget {
@@ -8,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+  final _auth = FirebaseAuth.instance;
   AnimationController? controller;
   Animation? animation;
   @override
@@ -26,6 +32,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
     });
   }
+  String? email;
+  String? password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +56,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               height: 48.0,
             ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
               onChanged: (value) {
+                email=value;
                 //Do something with the user input.
               },
               decoration: kInputDeco.copyWith(hintText: "Enter Email"),
@@ -56,7 +68,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
               onChanged: (value) {
+                password=value;
                 //Do something with the user input.
               },
               decoration: kInputDeco.copyWith(hintText: "Enter Passwork")
@@ -71,7 +86,17 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(
-                  onPressed: () {
+                  onPressed: () async{
+                    try{
+                      final user=await _auth.signInWithEmailAndPassword(email: email!, password: password!);
+                      if(user!=null){
+                        Navigator.pushNamed(context, RoutesName.chat);
+                      }
+
+                    }catch(e){
+                      print(e);
+                    }
+
                     //Implement login functionality.
                   },
                   minWidth: 200.0,
