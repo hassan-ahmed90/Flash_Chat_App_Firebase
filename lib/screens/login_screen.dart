@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       }
 
                     }catch(e){
-                      print(e);
+                      // print(e);
                     }
 
                     //Implement login functionality.
