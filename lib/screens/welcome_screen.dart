@@ -18,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     // TODO: implement initState
     super.initState();
     controller=AnimationController(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       vsync: this,
    upperBound: 100
     );
@@ -38,7 +38,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     controller?.forward();
     controller?.addListener(() {
       setState(() {
-        print(controller?.value);
+        //print(controller?.value);
       });
     });
   }
@@ -53,7 +53,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     return Scaffold(
       backgroundColor: animation!.value,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -83,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
             MyButton(colors:Colors.blue,title: "Log In", onTapped: (){
